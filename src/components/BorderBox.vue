@@ -19,16 +19,18 @@
         border: 2px solid #333;
         padding: 20px;
         padding-top: 25px;
+        margin: 25px 0;
         width: 100%;
         height: fit-content;
         border-radius: 20px;
+        background-color: inherit;
     }
 
     .box-title {
         position: absolute;
         top: -8px;
         left: 4%;
-        background: white;
+        background-color: inherit;
         padding: 0 6px;
         font-weight: bold;
         font-size:small;
@@ -39,7 +41,6 @@
             position: absolute;
             top: -15px;
             left: 3%;
-            background: white;
             padding: 0 6px;
             font-weight: bold;
             font-size: x-large;

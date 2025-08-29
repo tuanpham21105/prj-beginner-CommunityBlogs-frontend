@@ -40,13 +40,13 @@
 
     @media (min-width: 1080px) {
         .grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         }
     }
 
     @media (min-width: 1640px) {
         .grid {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         }
     }
 </style>

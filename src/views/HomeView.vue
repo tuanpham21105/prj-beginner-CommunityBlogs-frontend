@@ -1,10 +1,10 @@
 <template>
-	<main class="main-content">
-        <borderBox :title="'Blog mới'">
-            <gridLayout :child-tag="card" :children-data="testList"/>
-			<pagination :input-data="{index: 1, total: testTotal}"/>
-        </borderBox>
-	</main>
+	<HorizontalBanner/>
+	<borderBox :title="'Blog mới'">
+		<gridLayout :child-tag="card" :children-data="testList"/>
+		<pagination :input-data="{index: 1, total: testTotal}"/>
+	</borderBox>
+	<HorizontalBanner/>
 </template>
 
 <script setup>
@@ -13,6 +13,7 @@
 	import card from '../components/Card.vue';
 	import borderBox from '../components/BorderBox.vue';
 	import pagination from '@/components/Pagination.vue';
+	import HorizontalBanner from '../components/HorizontalBanner.vue';
 
 	const testList = ref([
 		{
@@ -57,7 +58,4 @@
 </script>
 
 <style scoped>
-    .main-content {
-        padding: 20px 0;
-    }
 </style>
