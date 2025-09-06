@@ -178,6 +178,8 @@
     function ChangePage() {
         ClampIndex();
         RenderPagination();
+        enbaleFrontQty.value = false;
+        enbaleEndQty.value = false;
         emits('onClickPage', index.value);
     }
 </script>
@@ -202,19 +204,21 @@
         background: #fff;
         transition: all 0.2s ease;
         user-select: none;
-        color: #007bff;
+        color: #333;
         width: fit-content;
     }
 
     .pagination li:hover {
-        background: #f2f2f2;    
+        background: #fff;
+        color: #333;    
+        border-color: #333;
     }
 
     .pagination li.active {
-        background: #007bff;
-        color: #fff;
+        background: #333;
+        color: #fff;    
         font-weight: bold;
-        border-color: #007bff;
+        border-color: #333;
     }
 
     .qty {

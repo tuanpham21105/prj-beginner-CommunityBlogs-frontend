@@ -1,7 +1,5 @@
 <template>
-	<header>
-	
-	</header>
+	<Header></Header>
 	
 	<nav>
 	
@@ -17,14 +15,15 @@
 		</aside>
 	</main>
 	
-	<footer>
-	</footer>		
+	<Footer></Footer>		
 </template>
 
 <script setup>
 	import {ref} from 'vue';
 	import HomeView from './views/HomeView.vue';
 	import HorizontalBanner from './components/HorizontalBanner.vue';
+	import Header from './layouts/Header.vue';
+	import Footer from './layouts/Footer.vue';
 </script>
 
 <style>
@@ -32,7 +31,7 @@
 		box-sizing: border-box;
 		margin: 0;
 		padding: 0;
-		/* font-family:Georgia, 'Times New Roman', Times, serif ; */
+		font-family:'Courier New', Courier, monospace;
 	}
 
 	main {
@@ -43,16 +42,17 @@
 		background-image: url(https://static.vecteezy.com/system/resources/thumbnails/000/633/918/small_2x/seamless_background_286_finger_print.jpg);
 	}
 
-	/* @media (min-width: 960px) {
-		main {
-			margin: 0 15%;
-		}
-    } */
-
 	aside {
+		width: 0;
+		padding: 0;
+	}
+
+	@media (min-width: 960px) {
+		aside {
 		width: 200px;
 		padding: 20px;
-	}
+		}
+    }
 
 	section {
 		flex: 1; /* chiếm hết phần còn lại */

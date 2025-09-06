@@ -2,6 +2,20 @@
     <div class="card" v-on:click.left="RedirectToLink">
         <img v-bind:src="imgUrl" alt="Image">
         <div class="title">{{ title }}</div>
+        <div class="details">
+            <div class="views">
+                <i class="fa-solid fa-eye"></i>
+                <p>1</p>
+            </div>
+            <div class="status">
+                <i class="fa-solid fa-pen"></i>
+                <p>Update</p>
+            </div>
+            <div class="date">
+                <i class="fa-solid fa-calendar-days"></i>
+                <p>25/09/2025</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -43,6 +57,7 @@
         cursor: pointer;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        padding-bottom: 5px;
     }
 
     /* Hover effect */
@@ -72,5 +87,21 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .card .details {
+        display: flex;
+        flex-direction: row;
+        padding: 0 16px;
+        justify-content: space-between;
+    }
+    
+    .card .details div {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .card .details div i {
+        padding: 0 4px;
     }
 </style>

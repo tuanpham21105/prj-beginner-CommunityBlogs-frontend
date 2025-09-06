@@ -1,6 +1,6 @@
 <template>
 	<HorizontalBanner/>
-	<borderBox :title="'Blog mới'">
+	<borderBox :title="'New Blogs'">
 		<gridLayout :child-tag="card" :children-data="testList"/>
 		<pagination :input-data="{index: 1, total: testTotal}"/>
 	</borderBox>
