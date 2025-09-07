@@ -9,7 +9,8 @@
 		<aside>
 		</aside>
 		<section>
-			<HomeView/>
+			<!-- <HomeView/> -->
+			 <BlogView/>
 		</section>
 		<aside>
 		</aside>
@@ -24,6 +25,7 @@
 	import HorizontalBanner from './components/HorizontalBanner.vue';
 	import Header from './layouts/Header.vue';
 	import Footer from './layouts/Footer.vue';
+	import BlogView from './views/BlogView.vue';
 </script>
 
 <style>

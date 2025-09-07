@@ -2,6 +2,10 @@
     <div class="card" v-on:click.left="RedirectToLink">
         <img v-bind:src="imgUrl" alt="Image">
         <div class="title">{{ title }}</div>
+        <div class="author">
+            <i class="fa-solid fa-user"></i>
+            <p>Phạm Văn A</p>
+        </div>
         <div class="details">
             <div class="views">
                 <i class="fa-solid fa-eye"></i>
@@ -92,7 +96,7 @@
     .card .details {
         display: flex;
         flex-direction: row;
-        padding: 0 16px;
+        padding: 4px 16px;
         justify-content: space-between;
     }
     
@@ -103,5 +107,15 @@
 
     .card .details div i {
         padding: 0 4px;
+    }
+
+    .card .author {
+        display: flex;
+        flex-direction: row;
+        padding: 4px 16px;
+    }
+
+    .card .author i {
+        padding: 0 6px;
     }
 </style>
