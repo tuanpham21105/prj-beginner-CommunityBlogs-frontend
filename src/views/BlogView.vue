@@ -3,11 +3,45 @@
         <template #left>
             <div class="sidebar">
                 <div class="details">
-                    
+                    <div class="user-box">
+                        <img :src="authorData.avatarImgUrl" alt="User Avatar">
+                        <a :href="`/user/${authorData.username}`" class="username">{{ authorData.username }}</a>
+                    </div>
+                    <div class="details-box">
+                        <div class="views">
+                            <i class="fa-solid fa-eye"></i>
+                            <p>{{ detailsData.viewsText }}</p>
+                        </div>
+                        <div class="status">
+                            <i class="fa-solid fa-pen"></i>
+                            <p>{{ detailsData.statusText }}</p>
+                        </div>
+                        <div class="date">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <p>{{ detailsData.dateText }}</p>
+                        </div>
+                    </div>
+                    <div class="vote-box">
+                        <div class="vote-number">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <p>{{ voteText }}</p>
+                        </div>
+                        <div class="vote">
+                            <i class="fa-solid fa-circle-up"></i>
+                            <p>Up vote</p>
+                        </div>
+                        <div class="vote">
+                            <i class="fa-solid fa-circle-down"></i>
+                            <p>Down vote</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="sitemap">
-                    
+                <div class="contents">
+                    <h3 class="title" @click.left="ToggleContents">Contents</h3>
+                    <div v-show="enableContents" class="list">
+                        <h4 v-for="item in contentsListData" :class="`header-${item.level}`">{{ item.name }}</h4>
+                    </div>
                 </div>
             </div>
         </template>
@@ -18,9 +52,9 @@
                 <p>Alert Text</p>
             </div>
             <div class="post">
-                <h1 class="title">Title</h1>
+                <h1 class="title">{{ postData.title }}</h1>
                 <hr>
-                <Markdown class="content" :source="markdownText" />
+                <Markdown class="content" :source="postData.content" />
             </div>
         </template>
     </Grid37Layout>
@@ -30,8 +64,54 @@
     import {ref} from 'vue';
     import Markdown from 'vue3-markdown-it';
     import Grid37Layout from '@/layouts/Grid37Layout.vue';
+    import HorizontalBanner from '@/components/HorizontalBanner.vue';
 
-    const markdownText = ref('Content');
+    //Input Data
+        //Author Data
+    const authorData = ref({
+        avatarImgUrl: "https://placehold.jp/45x45.png",
+        username: "defaultName",
+    });
+        //Details Data
+    const detailsData = ref({
+        viewsText: "10M",
+        statusText: "New",
+        dateText: "25/12/2025"
+    });
+        //Vote Data
+    const voteText = ref("-10");
+        //Contents List Data
+    const contentsListData = ref([
+        {
+            name: "Default",
+            level: 1,
+        },
+        {
+            name: "Default",
+            level: 2,
+        },
+        {
+            name: "Default",
+            level: 3,
+        },
+    ]);
+        //Post Data
+    const postData = ref({
+        title: "Title",
+        content: "# Content",
+    });
+
+    //Toggle Contents
+    const enableContents = ref(false);
+
+    function EnableContents(value) {
+        enable.value = value;
+    }
+
+    function ToggleContents() {
+        enableContents.value = !enableContents.value;
+    }
+
 </script>
 
 <style scoped>
@@ -44,16 +124,21 @@
         border-radius: 16px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.15); 
         padding: 10px;
-        overflow-y: auto;
+        overflow-y: scroll;
         scroll-snap-type: y mandatory;
         scroll-padding-bottom: 20px;
         scrollbar-gutter: stable;
+    }
+
+    .blog-view .sidebar::-webkit-scrollbar {
+        display: none;
     }
 
     @media (max-width: 960px) {
         .blog-view .sidebar {
             position: relative;
             height: fit-content;
+            overflow-y: visible;
         }
     }
 
@@ -79,5 +164,112 @@
 
     .blog-view .post .title, .blog-view .post .content { 
         margin: 10px 0;
+    }
+
+    .blog-view .details > * {
+        margin-bottom: 5px;
+    }
+
+    .blog-view .details .user-box {
+        display: flex;            
+        align-items: center;  
+        width: 100%;              
+        max-width: 100%;     
+        box-sizing: border-box;
+    }
+
+    .blog-view .details .user-box img {
+        width: 45px;             
+        height: 45px;
+        border-radius: 50%;     
+        object-fit: cover;
+        flex-shrink: 0;          
+    }
+
+    .blog-view .details .user-box .username {
+        margin-left: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #333;
+        white-space: nowrap;      
+        overflow: hidden;          
+        text-overflow: ellipsis;   
+        flex: 1;                  
+        text-decoration: none;
+        color: #555;
+    }
+
+    .blog-view .details .details-box, .blog-view .details .vote-box {
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+        border: 1px solid #ddd;
+        padding: 10px 5px;
+        border-radius: 6px;
+        background: #f9f9f9;
+        font-family: sans-serif;
+    }
+
+    .blog-view .details .details-box > div, .blog-view .details .vote-box > div {
+        display: flex;
+        align-items: center;
+        gap: 6px; 
+        color: #333;
+        font-size: 14px;
+        padding: 2px;
+        transition: 0.3s;
+    }
+
+    .blog-view .details .vote-box .vote {
+        cursor: pointer;
+    }
+
+    .blog-view .details .vote-box .vote:hover {
+        background-color: #ddd;
+        border-radius: 8px;
+    }
+
+    .blog-view .sidebar .contents {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    }
+
+    .blog-view .sidebar .contents .title {
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .blog-view .sidebar .contents .title:hover {
+        background-color: #ddd;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 1300px) and (min-width: 960px) {
+        .blog-view .details .details-box, .blog-view .details .vote-box {
+            display: block;
+        }
+    }
+
+    .blog-view .sidebar .contents .list > h4 {
+        border-left: 1px solid #777;
+        padding: 4px;
+        cursor: pointer;
+    }
+
+    .blog-view .sidebar .contents .list > h4:hover {
+        background-color: #ddd;
+    }
+
+    .blog-view .sidebar .contents .list .header-2 {
+        margin-left: 20px;
+    }
+
+    .blog-view .sidebar .contents .list .header-3 {
+        margin-left: 40px;
+    }
+
+    .blog-view .sidebar .contents .list .active {
+        background-color: #bbb;
     }
 </style>

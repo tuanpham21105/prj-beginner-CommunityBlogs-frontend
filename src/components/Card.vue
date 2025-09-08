@@ -1,23 +1,23 @@
 <template>
     <div class="card" v-on:click.left="RedirectToLink">
-        <img v-bind:src="imgUrl" alt="Image">
-        <div class="title">{{ title }}</div>
+        <img v-bind:src="inputObject.imgUrl" alt="Image">
+        <div class="title">{{ inputObject.title }}</div>
         <div class="author">
             <i class="fa-solid fa-user"></i>
-            <p>Phạm Văn A</p>
+            <p>{{ inputObject.username }}</p>
         </div>
         <div class="details">
             <div class="views">
                 <i class="fa-solid fa-eye"></i>
-                <p>1</p>
+                <p>{{ inputObject.viewsText }}</p>
             </div>
             <div class="status">
                 <i class="fa-solid fa-pen"></i>
-                <p>Update</p>
+                <p>{{ inputObject.statusText }}</p>
             </div>
             <div class="date">
                 <i class="fa-solid fa-calendar-days"></i>
-                <p>25/09/2025</p>
+                <p>{{ inputObject.dateText }}</p>
             </div>
         </div>
     </div>
@@ -34,15 +34,7 @@
         }
     });
 
-    const redirectLink = ref('/');
-    const imgUrl = ref('https://picsum.photos/600');
-    const title = ref('');
-
-    onMounted(() => {
-        if (props.inputObject.hasOwnProperty('redirectLink')) redirectLink.value = props.inputObject.redirectLink === null ? '/' : props.inputObject.redirectLink;
-        if (props.inputObject.hasOwnProperty('imgUrl')) imgUrl.value = props.inputObject.imgUrl === null ? 'https://picsum.photos/600' : props.inputObject.imgUrl;
-        if (props.inputObject.hasOwnProperty('title')) title.value = props.inputObject.title === null ? 'No title' : props.inputObject.title;
-    });
+    const redirectLink = ref(props.inputObject.redirectPath);
 
     function RedirectToLink() {
         router.push(redirectLink);

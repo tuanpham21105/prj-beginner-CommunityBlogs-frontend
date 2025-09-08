@@ -9,8 +9,8 @@
 		<aside>
 		</aside>
 		<section>
-			<!-- <HomeView/> -->
-			 <BlogView/>
+			<HomeView/>
+			<!-- <BlogView/> -->
 		</section>
 		<aside>
 		</aside>
@@ -49,12 +49,19 @@
 		padding: 0;
 	}
 
-	@media (min-width: 960px) {
+	@media (min-width: 960px) and (max-width: 1370px) {
 		aside {
-		width: 200px;
-		padding: 20px;
+			width: 150px;
+			padding: 15px;
 		}
     }
+
+	@media (min-width: 1370px) {
+		aside {
+			width: 200px;
+			padding: 20px;
+		}
+	}
 
 	section {
 		flex: 1; /* chiếm hết phần còn lại */

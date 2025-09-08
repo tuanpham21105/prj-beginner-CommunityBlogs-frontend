@@ -9,7 +9,7 @@
         Uri: {
             type: String,
             required: true,
-            default: 'https://www.adspeed.com/placeholder-728x90-Test.gif',
+            default: 'https://placehold.jp/900x90.png',
         },
         Url: {
             type: String,
