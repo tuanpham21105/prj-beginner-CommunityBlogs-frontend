@@ -2,15 +2,14 @@
 	<Header></Header>
 	
 	<nav>
-	
+
 	</nav>
 	
 	<main class="main-content">
 		<aside>
 		</aside>
 		<section>
-			<HomeView/>
-			<!-- <BlogView/> -->
+			<router-view/>
 		</section>
 		<aside>
 		</aside>
@@ -26,6 +25,8 @@
 	import Header from './layouts/Header.vue';
 	import Footer from './layouts/Footer.vue';
 	import BlogView from './views/BlogView.vue';
+	import ContactUsView from './views/ContactUsView.vue';
+	import IntroduceView from './views/IntroduceView.vue';
 </script>
 
 <style>

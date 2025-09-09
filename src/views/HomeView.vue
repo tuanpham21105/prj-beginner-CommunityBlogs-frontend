@@ -2,7 +2,7 @@
 	<HorizontalBanner/>
 	<borderBox :title="'New Blogs'">
 		<gridLayout :child-tag="card" :children-data="blogCardListData"/>
-		<pagination :input-data="{index: pageData.index, total: pageData.total}"/>
+		<pagination :input-data="{index: pageData.index, total: pageData.total}" @on-click-page=""/>
 	</borderBox>
 	<HorizontalBanner/>
 </template>
@@ -19,7 +19,7 @@
 		//Blog Card List Data
 	const blogCardListData = ref([
 		{
-			redirectPath: "/blog/ABC",
+			id: "ABC",
 			imgUrl: "https://picsum.photos/600",
 			title: "ABC",
 			username: "defaultUsername",

@@ -15,6 +15,7 @@
             <div class="footer-col">
                 <h3>Socials </h3>
                 <ul>
+                    <li><img src="/images/socials_network_icons/gmail.png" alt="" class="icon">communityblogs@gmail.com</li>
                     <li><img src="/images/socials_network_icons/facebook.png" alt="" class="icon"><a href="#">Facebook</a></li>
                     <li><img src="/images/socials_network_icons/instagram.png" alt="" class="icon"><a href="#">Instagram</a></li>
                     <li><img src="/images/socials_network_icons/x.png" alt="" class="icon"><a href="#">X/Twitter</a></li>

@@ -7,11 +7,11 @@
 		<WebsiteLogo/>
 
 		<div class="tabsbar">
-			<Tab :text-content="'New Blogs'"/>
+			<Tab :text-content="'New Blogs'" :redirect-path="'/'" @on-click="Redirect"/>
 			<Tab :text-content="'Your Blogs'"/>
 			<Tab :text-content="'Write Blog'"/>
-			<Tab :text-content="'Contact us'"/>
-			<Tab :text-content="'What is CommunityBlog'"/>
+			<Tab :text-content="'Contact us'" :redirect-path="'/contact'" @on-click="Redirect"/>
+			<Tab :text-content="'What is CommunityBlog'" :redirect-path="'/introduce'" @on-click="Redirect"/>
 		</div>
 
 		<div class="btn-bar login-signin">
@@ -30,6 +30,13 @@
 	import WebsiteLogo from '@/components/WebsiteLogo.vue';
 	import Tab from '@/components/Tab.vue';
 	import Button from '@/components/Button.vue';
+	import { useRouter } from 'vue-router';
+
+	const router = useRouter();
+
+	function Redirect(path) {
+		router.push(path);
+	}
 </script>
 
 <style scoped>

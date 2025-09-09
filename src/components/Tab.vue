@@ -1,30 +1,27 @@
 <template>
-    <div @click.left="RedirectToLink" class="tab">
+    <div @click.left="OnClick" class="tab">
         <h3>{{ textContent }}</h3>
     </div>
 </template>
 
 <script setup>
 	import {onMounted, ref} from 'vue';
-    import router from '../router/index';
+
+    const emits = defineEmits(['onClick']);
 
     const props = defineProps({
         textContent: {
             type: String,
             default: '',
         },
-        redirectLink: {
+        redirectPath: {
             type: String,
             default: '/',
         },
     });
 
-    onMounted(() => {
-
-    });
-
-    function RedirectToLink() {
-        router.push(redirectLink);
+    function OnClick() {
+        emits('onClick', props.redirectPath);
     }
 </script>
 

@@ -1,17 +1,17 @@
 <template>
-    <a :href="Url">
-        <img class="banner" :src="Uri" alt="Banner" >
+    <a :href="url">
+        <img class="banner" :src="uri" alt="Banner" >
     </a>
 </template>
 
 <script setup>
     const props = defineProps({
-        Uri: {
+        uri: {
             type: String,
             required: true,
             default: 'https://placehold.jp/900x90.png',
         },
-        Url: {
+        url: {
             type: String,
             required: true,
             default: '',
@@ -24,6 +24,7 @@
         box-sizing: content-box;
         width: 100%;
         height: auto;
+        margin: 10px 0;
     }
 </style>
 

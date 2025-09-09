@@ -53,6 +53,7 @@
             </div>
             <div class="post">
                 <h1 class="title">{{ postData.title }}</h1>
+                <img class="display-img" :src="postData.displayImgUri" alt="">
                 <hr>
                 <Markdown class="content" :source="postData.content" />
             </div>
@@ -98,6 +99,7 @@
         //Post Data
     const postData = ref({
         title: "Title",
+        displayImgUri: "https://picsum.photos/600/300",
         content: "# Content",
     });
 
@@ -252,7 +254,7 @@
     }
 
     .blog-view .sidebar .contents .list > h4 {
-        border-left: 1px solid #777;
+        border-left: 2px solid #666;
         padding: 4px;
         cursor: pointer;
     }
@@ -271,5 +273,13 @@
 
     .blog-view .sidebar .contents .list .active {
         background-color: #bbb;
+    }
+
+    .blog-view .post img {
+        margin: 5px;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
 </style>

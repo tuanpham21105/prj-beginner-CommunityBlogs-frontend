@@ -25,7 +25,9 @@
 
 <script setup>
     import { onMounted, ref } from 'vue';
-    import router from '../router/index';
+    import { useRouter } from 'vue-router';
+
+    const router = useRouter();
 
     const props = defineProps({
         inputObject: {
@@ -34,10 +36,12 @@
         }
     });
 
-    const redirectLink = ref(props.inputObject.redirectPath);
+    const emits = defineEmits(['onClick']);
+
+    const redirectLink = ref('/blog/' + props.inputObject.id);
 
     function RedirectToLink() {
-        router.push(redirectLink);
+        router.push(redirectLink.value);
     }
 </script>
 
