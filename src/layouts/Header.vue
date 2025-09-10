@@ -15,8 +15,8 @@
 		</div>
 
 		<div class="btn-bar login-signin">
-			<Button>Login</Button>
-			<Button>Sign Up</Button>
+			<Button :redirect-path="'/auth/login'" @on-click="Redirect">Login</Button>
+			<Button :redirect-path="'/auth/signin'" @on-click="Redirect">Sign Up</Button>
 		</div>
 
 		<div class="btn-bar placeholder">

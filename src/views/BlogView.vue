@@ -26,7 +26,7 @@
                             <i class="fa-solid fa-thumbs-up"></i>
                             <p>{{ voteText }}</p>
                         </div>
-                        <div class="vote">
+                        <div class="vote acitve">
                             <i class="fa-solid fa-circle-up"></i>
                             <p>Up vote</p>
                         </div>
@@ -224,11 +224,17 @@
 
     .blog-view .details .vote-box .vote {
         cursor: pointer;
+        border-radius: 8px;
     }
 
     .blog-view .details .vote-box .vote:hover {
         background-color: #ddd;
-        border-radius: 8px;
+        color: #333;
+    }
+    
+    .blog-view .details .vote-box .active {
+        background-color: #333;
+        color: #fff;
     }
 
     .blog-view .sidebar .contents {
@@ -282,4 +288,5 @@
         border-radius: 8px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
+
 </style>

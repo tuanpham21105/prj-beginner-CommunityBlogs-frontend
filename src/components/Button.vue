@@ -1,20 +1,21 @@
 <template>
-    <button @click.left="RedirectToLink" class="btn-rounded"><h3><slot></slot></h3></button>
+    <button @click.left="OnClick" class="btn-rounded"><h3><slot></slot></h3></button>
 </template>
 
 <script setup>
 	import {ref} from 'vue';
-    import router from '../router/index';
     
+    const emits = defineEmits(['onClick']);
+
     const props = defineProps({
-        redirectLink: {
+        redirectPath: {
             type: String,
             default: '/',
         },
     });
 
-    function RedirectToLink() {
-        router.push(redirectLink);
+    function OnClick() {
+        emits('onClick', props.redirectPath);
     }
 </script>
 

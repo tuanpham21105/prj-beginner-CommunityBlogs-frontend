@@ -11,7 +11,7 @@
 <style>
     .website-logo {
         width: 5%;
-        height: auto;
+        height: fit-content;
         display: flex;
         align-items: center;  
     }
