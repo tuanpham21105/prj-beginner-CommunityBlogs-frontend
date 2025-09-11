@@ -7,6 +7,7 @@
 	import AuthenticationLayout from '@/layouts/AuthenticationLayout.vue';
 	import LoginView from '@/views/LoginView.vue';
 	import SigninView from '@/views/SigninView.vue';
+	import BlogEditor from '@/views/BlogEditor.vue';
 
 	const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +18,8 @@
 			{ path: 'blog/:id', component: BlogView},
 			{ path: 'contact', component: ContactUsView},
 			{ path: 'introduce', component: IntroduceView},
+			{ path: 'editor', component: BlogEditor},
+			{ path: 'editor/:id', component: BlogEditor},
 		]},
 		{
 			path: '/auth', component: AuthenticationLayout,

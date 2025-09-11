@@ -1,25 +1,33 @@
 <template>
-    <div class="login-container">
-        <div class="login-left">
+    <div class="signin-container">
+        <div class="signin-left">
             <WebsiteLogo class="logo"/>
         </div>
-        <div class="login-right">
-        <div class="login-box">
-            <h2>Login</h2>
-            <form>
-            <input type="text" placeholder="Username" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-            </form>
-            <p>Don't have an account? <a href="#" @click.left="Redirect('/auth/signin')">Sign Up</a></p>
-            <p>Only want to read! <a href="#" @click.left="Redirect('/')">Back to News</a></p>
-        </div>
+        <div class="signin-right">
+            <div class="signin-box">
+                <h2>Sign Up</h2>
+                <form>
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="text" placeholder="Username" required>
+                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Confirm Password" required>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <p>Already have an account? 
+                    <a href="#" @click.left="Redirect('/auth/login')">Login</a>
+                </p>
+                <p>Only want to read! 
+                    <a href="#" @click.left="Redirect('/')">Back to News</a>
+                </p>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
     import { useRouter } from 'vue-router';
+    import WebsiteLogo from '@/components/WebsiteLogo.vue';
     const router = useRouter();
 
     function Redirect(path) {
@@ -28,31 +36,32 @@
 </script>
 
 <style scoped>
-    .login-container {
+    .signin-container {
         display: flex;
         height: 100vh; /* full màn hình */
 
     }
 
     /* Bên trái: ảnh */
-    .login-left {
+    .signin-left {
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    .login-left .logo {
+    .signin-left .logo {
         display: block;
         background-color: #fff;
         padding: 0 4px;
         width: 20%;
         height: fit-content;
         cursor: pointer;
+        border-radius: 8px;
     }
 
     /* Bên phải: form */
-    .login-right {
+    .signin-right {
         flex: 1;
         display: flex;
         align-items: center;
@@ -61,18 +70,18 @@
         padding: 40px;
     }
 
-    .login-box {
+    .signin-box {
         width: 100%;
         max-width: 350px;
     }
 
-    .login-box h2 {
+    .signin-box h2 {
         text-align: center;
         margin-bottom: 20px;
         color: #333;
     }
 
-    .login-box input {
+    .signin-box input {
         width: 100%;
         padding: 12px;
         margin: 10px 0;
@@ -81,7 +90,7 @@
         font-size: 14px;
     }
 
-    .login-box button {
+    .signin-box button {
         width: 100%;
         padding: 12px;
         background: #333;
@@ -93,18 +102,18 @@
         margin-top: 10px;
     }
 
-    .login-box button:hover {
+    .signin-box button:hover {
         background: #555;
     }
 
-    .login-box p {
+    .signin-box p {
         text-align: center;
         margin-top: 15px;
         font-size: 14px;
         color: #666;
     }
 
-    .login-box p a {
+    .signin-box p a {
         color: #333;
         text-decoration: none;
         font-weight: bold;

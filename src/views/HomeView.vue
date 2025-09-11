@@ -1,22 +1,17 @@
 <template>
 	<HorizontalBanner/>
-	<borderBox :title="'New Blogs'">
-		<gridLayout :child-tag="card" :children-data="blogCardListData"/>
-		<pagination :input-data="{index: pageData.index, total: pageData.total}" @on-click-page=""/>
-	</borderBox>
+	<BlogsList :title="'New Blogs'" :blog-card-list-data="blogCardListData" :page-data="pageData"/>
 	<HorizontalBanner/>
 </template>
 
 <script setup>
 	import {ref} from 'vue';
-	import gridLayout from '../layouts/GridLayout.vue';
-	import card from '../components/Card.vue';
-	import borderBox from '../components/BorderBox.vue';
-	import pagination from '@/components/Pagination.vue';
 	import HorizontalBanner from '../components/HorizontalBanner.vue';
+	import BlogsList from '@/components/BlogsList.vue';
 
 	//Input Data
 		//Blog Card List Data
+	
 	const blogCardListData = ref([
 		{
 			id: "ABC",

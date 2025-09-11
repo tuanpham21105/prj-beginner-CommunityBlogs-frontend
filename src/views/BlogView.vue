@@ -55,19 +55,25 @@
                 <h1 class="title">{{ postData.title }}</h1>
                 <img class="display-img" :src="postData.displayImgUri" alt="">
                 <hr>
-                <Markdown class="content" :source="postData.content" />
+                <!-- <Markdown class="content" :source="postData.content"/> -->
+                 
+                <MdPreview language="en-US" class="content" :modelValue="postData.content" />
             </div>
         </template>
     </Grid37Layout>
 </template>
 
 <script setup>
-    import {ref} from 'vue';
+    import {onMounted, ref} from 'vue';
     import Markdown from 'vue3-markdown-it';
     import Grid37Layout from '@/layouts/Grid37Layout.vue';
     import HorizontalBanner from '@/components/HorizontalBanner.vue';
+    import { MdPreview, MdCatalog } from 'md-editor-v3';
+    import 'md-editor-v3/lib/preview.css';
 
     //Input Data
+        //Blog Data
+    const blogId = ref('');
         //Author Data
     const authorData = ref({
         avatarImgUrl: "https://placehold.jp/45x45.png",
@@ -100,7 +106,7 @@
     const postData = ref({
         title: "Title",
         displayImgUri: "https://picsum.photos/600/300",
-        content: "# Content",
+        content: "# Sample Markdown",
     });
 
     //Toggle Contents

@@ -3,20 +3,24 @@
 		<div class="btn-bar setting">
 			<Button><i class="fa-solid fa-bars"></i></Button>
 		</div>
-
+		
 		<WebsiteLogo/>
 
 		<div class="tabsbar">
 			<Tab :text-content="'New Blogs'" :redirect-path="'/'" @on-click="Redirect"/>
-			<Tab :text-content="'Your Blogs'"/>
-			<Tab :text-content="'Write Blog'"/>
+			<!-- <Tab :text-content="'Your Blogs'"/> -->
+			<Tab :text-content="'Write Blog'" :redirect-path="'/editor'" @on-click="Redirect"/>
 			<Tab :text-content="'Contact us'" :redirect-path="'/contact'" @on-click="Redirect"/>
 			<Tab :text-content="'What is CommunityBlog'" :redirect-path="'/introduce'" @on-click="Redirect"/>
 		</div>
 
-		<div class="btn-bar login-signin">
+		<div class="btn-bar login-signin" v-if="!loginActive">
 			<Button :redirect-path="'/auth/login'" @on-click="Redirect">Login</Button>
 			<Button :redirect-path="'/auth/signin'" @on-click="Redirect">Sign Up</Button>
+		</div>
+
+		<div class="btn-bar user" v-if="loginActive">
+			<Button :redirect-path="`/user/${user.username}`" @on-click="Redirect"><i class="fa-solid fa-user"></i> {{ user.username }}</Button>
 		</div>
 
 		<div class="btn-bar placeholder">
@@ -26,13 +30,28 @@
 </template>
 
 <script setup>
-	import {ref} from 'vue';
+	import {onMounted, ref} from 'vue';
 	import WebsiteLogo from '@/components/WebsiteLogo.vue';
 	import Tab from '@/components/Tab.vue';
 	import Button from '@/components/Button.vue';
 	import { useRouter } from 'vue-router';
 
 	const router = useRouter();
+
+	//Input Data
+	const user = ref({
+		username: null,
+	});
+
+	//Data
+	const loginActive = ref(false);
+
+	//Start
+	onMounted(() => {
+		if (user.value.username != null && user.value.username != '') {
+			loginActive.value = true;
+		}	
+	});
 
 	function Redirect(path) {
 		router.push(path);
@@ -67,6 +86,11 @@
 
 	.header-bar .setting {
 		display: none;
+	}
+
+	.header-bar .logo {
+		height: 100%;
+		width: 100%;
 	}
 
 	.header-bar .placeholder {

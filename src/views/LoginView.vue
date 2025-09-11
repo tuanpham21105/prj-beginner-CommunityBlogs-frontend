@@ -4,22 +4,23 @@
             <WebsiteLogo class="logo"/>
         </div>
         <div class="login-right">
-        <div class="login-box">
-            <h2>Login</h2>
-            <form>
-            <input type="text" placeholder="Username" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-            </form>
-            <p>Don't have an account? <a href="#" @click.left="Redirect('/auth/signin')">Sign Up</a></p>
-            <p>Only want to read! <a href="#" @click.left="Redirect('/')">Back to News</a></p>
-        </div>
+            <div class="login-box">
+                <h2>Login</h2>
+                <form>
+                <input type="text" placeholder="Username" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" @click.left="Redirect('/auth/signin')">Sign Up</a></p>
+                <p>Only want to read! <a href="#" @click.left="Redirect('/')">Back to News</a></p>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
     import { useRouter } from 'vue-router';
+    import WebsiteLogo from '@/components/WebsiteLogo.vue';
     const router = useRouter();
 
     function Redirect(path) {
@@ -49,6 +50,7 @@
         width: 20%;
         height: fit-content;
         cursor: pointer;
+        border-radius: 8px;
     }
 
     /* Bên phải: form */
