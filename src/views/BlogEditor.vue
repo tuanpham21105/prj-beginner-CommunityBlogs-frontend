@@ -3,13 +3,18 @@
         <h1><i class="fa-solid fa-pen-to-square"></i> Blog Editor</h1>
         <p>Our Blog Editor allows you to create and edit posts with full Markdown (.md) support. Easily format text, add images, insert code blocks, and structure your content with headings and lists. With a live preview and intuitive controls, you can focus on writing while the editor handles the formatting.</p>
         
-        <h2>Blog Content</h2>
+        <h2>Blog Details</h2>
 
-        <div class="title-box">
+        <div class="details-box">
+            <label><h3>Which Blog?</h3></label>
+            <select id="blog-select" @change="ChangeBlogOption">
+                <option value="new">New Blog</option>
+                <option :value="blog.id" v-for="blog in blogList">{{ blog.title }}</option>
+            </select>
             <label for=""><h3>Title<span style="color: red;">*</span></h3></label>
-            <input type="text" placeholder="Title" v-model="title" required>
+            <input type="text" placeholder="Title" v-model="title" @change="ChangeDetails" required>
             <label for=""><h3>Display Image</h3></label>
-            <input ref="displayImg" type="url" placeholder="Display Image URL(If this empty, there will be placeholder image)" @change="ChangeDisplayImg" v-model="displayImgUrl">
+            <input ref="displayImg" type="url" placeholder="Display Image URL(If this empty, there will be placeholder image)" @change="ChangeDisplayImg, ChangeDetails" v-model="displayImgUrl">
         </div>
 
         <img :src="displayImgUrl" @error="DisplayImgError" class="display-img">
@@ -17,7 +22,7 @@
         <label for=""><h3>Content</h3></label>
         <MdEditor language="en-US" v-model="content" :sanitize="sanitize"/>
         <div class="btn-bar">
-            <Button>Save</Button>
+            <Button v-show="!saveStatus" @on-click="SaveBlog">Save</Button>
         </div>
     </div>
 </template>
@@ -29,16 +34,28 @@
     import Button from '@/components/Button.vue';
     import sanitizeHtml from 'sanitize-html';
 
+    const blogList = ref([
+        {
+            id: 'defaultId',
+            title: 'defalutTitle',
+            imgUrl: 'defaultImgUrl',
+        },
+    ]);
+
+    const blogId = ref('');
+
     const title = ref('');
 
     const displayImg = ref(null);
     const displayImgUrl = ref('afdafaef');
 
-    const content = ref('');
+    const content = ref('# Content');
     
     const sanitize = (html) => {
         return sanitizeHtml(html);
     };
+
+    const saveStatus = ref(true);
 
     function ChangeDisplayImg(e) {
         displayImgUrl.value = e.target.value;
@@ -50,6 +67,33 @@
         
     function DisplayImgError() {
         displayImgUrl.value = 'https://picsum.photos/600/300';
+    }
+
+    function ChangeBlogOption(e) {
+        if (e.target.value === 'new') {
+            blogId.value = '';
+            title.value = '';
+            displayImgUrl.value = '';
+
+            content.value = '#Content';
+        }
+        else {
+            const blog = blogList.value.find(b => b.id === e.target.value);
+
+            blogId.value = blog.id;
+            title.value = blog.title;
+            displayImgUrl.value = blog.imgUrl;
+
+            content.value = '#Content';
+        }
+    }
+
+    function SaveBlog() {
+        saveStatus.value = true;
+    }
+
+    function ChangeDetails() {
+        saveStatus.value = false;
     }
 </script>
 
@@ -72,7 +116,7 @@
         width: fit-content;
     }
 
-    .editor .title-box input {
+    .editor .details-box input, select {
         width: 100%;
         padding: 12px;
         margin: 10px 0;
