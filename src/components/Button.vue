@@ -30,7 +30,8 @@
         border-radius: 8px;     
         text-align: center;
         display: flex;
-        align-items: center;  
+        align-items: center;
+        justify-content: center;  
         cursor: pointer;
         box-shadow: 0 4px 10px rgba(0,0,0,0.15); 
         transition: 0.3s;

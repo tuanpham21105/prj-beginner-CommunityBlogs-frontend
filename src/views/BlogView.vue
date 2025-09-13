@@ -2,12 +2,17 @@
     <Grid37Layout class="blog-view">
         <template #left>
             <div class="sidebar">
+                
                 <div class="details">
                     <div class="user-box">
                         <img :src="authorData.avatarImgUrl" alt="User Avatar">
-                        <a :href="`/user/${authorData.username}`" class="username">{{ authorData.username }}</a>
+                        <a href="" @click.left="Redirect(`/user/${authorData.username}`)" class="username">{{ authorData.username }}</a>
                     </div>
-                    <div class="details-box">
+                    <div v-if="loginState">
+                        <Button style="width: 100%;" :redirectPath="`/editor/${blogId}`" @onClick="Redirect"><i class="fa-solid fa-pen-to-square"></i> Edit</Button>
+                        <Button style="width: 100%;"><i class="fa-solid fa-trash"></i> Delete</Button>
+                    </div>
+                    <div class="details-box box">
                         <div class="views">
                             <i class="fa-solid fa-eye"></i>
                             <p>{{ detailsData.viewsText }}</p>
@@ -21,7 +26,7 @@
                             <p>{{ detailsData.dateText }}</p>
                         </div>
                     </div>
-                    <div class="vote-box">
+                    <div class="vote-box box">
                         <div class="vote-number">
                             <i class="fa-solid fa-thumbs-up"></i>
                             <p>{{ voteText }}</p>
@@ -70,6 +75,12 @@
     import HorizontalBanner from '@/components/HorizontalBanner.vue';
     import { MdPreview, MdCatalog } from 'md-editor-v3';
     import 'md-editor-v3/lib/preview.css';
+    import Button from '@/components/Button.vue';
+	import { useRouter } from 'vue-router';
+
+    const router = useRouter();
+
+    const loginState = ref(false);
 
     //Input Data
         //Blog Data
@@ -120,6 +131,9 @@
         enableContents.value = !enableContents.value;
     }
 
+    function Redirect(path) {
+        router.push(path);
+    }
 </script>
 
 <style scoped>
@@ -207,7 +221,7 @@
         color: #555;
     }
 
-    .blog-view .details .details-box, .blog-view .details .vote-box {
+    .blog-view .details .box {
         display: flex;
         justify-content: space-between; 
         align-items: center;

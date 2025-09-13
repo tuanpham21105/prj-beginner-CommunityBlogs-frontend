@@ -22,13 +22,13 @@
         <label for=""><h3>Content</h3></label>
         <MdEditor language="en-US" v-model="content" :sanitize="sanitize"/>
         <div class="btn-bar">
-            <Button v-show="!saveStatus" @on-click="SaveBlog">Save</Button>
+            <Button @on-click="SaveBlog">Save</Button>
         </div>
     </div>
 </template>
 
 <script setup>
-    import { ref } from 'vue';
+    import { ref, watch } from 'vue';
     import { MdEditor } from 'md-editor-v3';
     import 'md-editor-v3/lib/style.css';
     import Button from '@/components/Button.vue';
@@ -70,6 +70,8 @@
     }
 
     function ChangeBlogOption(e) {
+        saveStatus.value = true;
+
         if (e.target.value === 'new') {
             blogId.value = '';
             title.value = '';
@@ -91,6 +93,10 @@
     function SaveBlog() {
         saveStatus.value = true;
     }
+
+    watch(content, (newVal, oldVal) => {
+        ChangeDetails();
+    });
 
     function ChangeDetails() {
         saveStatus.value = false;
