@@ -1,58 +1,37 @@
 <template>
-    <div class="user-card">
-        <img src="https://via.placeholder.com/150" alt="User Avatar">
-        <div class="user-info">
-            <h3>Nguyễn Văn A</h3>
-            <p>Ngày lập: 25/09/2022</p>
-            <p class="vote-score">Vote Score: 1234</p>
-        </div>
-    </div>
+    <user-card/>
+    <blogs-list :title="'Blogs'" :blog-card-list-data="blogCardListData" :page-data="pageData"/>
 </template>
 
 <script setup>
     import {ref} from 'vue';
+    import UserCard from '@/components/UserCard.vue';
+    import BlogsList from '@/components/BlogsList.vue';
+
+    //Data
+        //user
+    const userId = ref('');
+        //Blogs 
+    const blogCardListData = ref([
+		{
+			id: "ABC",
+			imgUrl: "https://picsum.photos/600",
+			title: "ABC",
+			username: "defaultUsername",
+			viewsText: "10M",
+			statusText: "New",
+			dateText: "25/10/2025",
+		},
+	]);
+		//Page Data
+	const pageData = ref({
+		index: 1,
+		total: 1,
+	});
+    const blogsList = ref({
+
+    })
 </script>
 
 <style scoped>
-    .user-card {
-        display: flex;
-        align-items: center;
-        padding: 15px 20px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        background: #fff;
-        font-family: Arial, sans-serif;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    .user-card img {
-        width: 70px;
-        height: 70px;
-        border-radius: 50%; /* avatar tròn */
-        object-fit: cover;
-        margin-right: 15px;
-        border: 2px solid #333;
-    }
-
-    .user-info {
-        flex: 1;
-    }
-
-    .user-info h3 {
-        margin: 0;
-        font-size: 20px;
-        color: #333;
-    }
-
-    .user-info p {
-        margin: 5px 0;
-        font-size: 14px;
-        color: #666;
-    }
-
-    .vote-score {
-        font-weight: bold;
-        color: #007bff;
-        margin-top: 5px;
-    }
 </style>

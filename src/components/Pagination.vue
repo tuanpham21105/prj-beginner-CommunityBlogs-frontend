@@ -1,5 +1,5 @@
 <template>
-    <ul ref="pagination" id="pagination" class="pagination">
+    <ul ref="pagination" id="pagination" class="pagination" v-if="inputData.total > 1">
         <li v-on:click.left="OnClickPage">1</li>
         <li v-for="number in renderNumbers" v-show="enableFrontNumbers" v-on:click.left="OnClickPage">{{ number }}</li>
         <li v-show="enableFrontDots" v-on:click.self="ToggleQty" data-type="frontQty">

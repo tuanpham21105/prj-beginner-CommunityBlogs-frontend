@@ -1,5 +1,5 @@
 <template>
-	<borderBox :title="'New Blogs'">
+	<borderBox :title="title">
 		<gridLayout :child-tag="card" :children-data="blogCardListData"/>
 		<pagination :input-data="{index: pageData.index, total: pageData.total}" @on-click-page=""/>
 	</borderBox>
