@@ -1,7 +1,7 @@
 <template>
 	<borderBox :title="title">
 		<gridLayout :child-tag="card" :children-data="blogCardListData"/>
-		<pagination :input-data="{index: pageData.index, total: pageData.total}" @on-click-page=""/>
+		<pagination :input-data="{index: pageData.index, total: pageData.total}" @on-click-page="OnClickPage"/>
 	</borderBox>
 </template>
 
@@ -11,6 +11,9 @@
 	import card from '../components/Card.vue';
 	import borderBox from '../components/BorderBox.vue';
 	import pagination from '@/components/Pagination.vue';
+
+    //Emits
+    const emits = defineEmits(['onClickPage']);
 
 	//Input Data
     const props = defineProps({
@@ -34,6 +37,10 @@
             }
         }
     });
+
+    function OnClickPage(pageIndex) {
+        emits('onClickPage', pageIndex);
+    }
 </script>
 
 <style scoped>

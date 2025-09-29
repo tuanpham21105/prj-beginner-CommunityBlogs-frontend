@@ -13,19 +13,23 @@
 	const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
-		{path: '/',  component: DefaultLayout,
-		children: [
-			{ path: '', component: HomeView},
-			{ path: 'blog/:id', component: BlogView},
-			{ path: 'contact', component: ContactUsView},
-			{ path: 'introduce', component: IntroduceView},
-			{ path: 'editor', component: BlogEditor},
-			{ path: 'editor/:id', component: BlogEditor},
-			{ path: 'user/:id', component: UserView},
-		]},
+		{
+			path: '/',  component: DefaultLayout,
+			children: 
+			[
+				{ path: '', component: HomeView},
+				{ path: 'blog/:id', component: BlogView},
+				{ path: 'contact', component: ContactUsView},
+				{ path: 'introduce', component: IntroduceView},
+				{ path: 'editor', component: BlogEditor},
+				{ path: 'editor/:id', component: BlogEditor},
+				{ path: 'user/:id', component: UserView},
+			]
+		},
 		{
 			path: '/auth', component: AuthenticationLayout,
-			children: [
+			children: 
+			[
 				{ path: 'login', component: LoginView},
 				{ path: 'signin', component: SigninView}
 			]
