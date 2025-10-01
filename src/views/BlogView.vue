@@ -45,7 +45,7 @@
                 <div class="contents">
                     <h3 class="title" @click.left="ToggleContents">Contents</h3>
                     <div v-show="enableContents" class="list">
-                        <h4 v-for="item in contentsListData" :class="`header-${item.level}`">{{ item.name }}</h4>
+                        <h4 v-for="item in contentsListData" :class="`header-${item.level}`" @click="JumpToContent(item.text)">{{ item.text }}</h4>
                     </div>
                 </div>
             </div>
@@ -58,11 +58,11 @@
             </div>
             <div class="post">
                 <h1 class="title">{{ postData.title }}</h1>
-                <img class="display-img" :src="postData.displayImgUri" alt="">
+                <img class="display-img" :src="postData.displayImgUrl" alt="">
                 <hr>
                 <!-- <Markdown class="content" :source="postData.content"/> -->
                  
-                <MdPreview language="en-US" class="content" :modelValue="postData.content" />
+                <MdPreview language="en-US" class="content" :modelValue="postData.content" @onGetCatalog="GetTableOfContents"/>
             </div>
         </template>
     </Grid37Layout>
@@ -73,55 +73,78 @@
     import Markdown from 'vue3-markdown-it';
     import Grid37Layout from '@/layouts/Grid37Layout.vue';
     import HorizontalBanner from '@/components/HorizontalBanner.vue';
-    import { MdPreview, MdCatalog } from 'md-editor-v3';
+    import { MdPreview } from 'md-editor-v3';
     import 'md-editor-v3/lib/preview.css';
     import Button from '@/components/Button.vue';
-	import { useRouter } from 'vue-router';
+	import { useRouter, useRoute } from 'vue-router';
+    import { GetBlogContent, GetBlogDetails } from '@/services/BlogServices.vue';
 
     const router = useRouter();
+    const route = useRoute();
 
     const loginState = ref(false);
 
     //Input Data
         //Blog Data
-    const blogId = ref('');
+    const blogId = ref(route.params.id);
         //Author Data
     const authorData = ref({
         avatarImgUrl: "https://placehold.jp/45x45.png",
-        username: "defaultName",
+        username: "",
     });
         //Details Data
     const detailsData = ref({
-        viewsText: "10M",
-        statusText: "New",
-        dateText: "25/12/2025"
+        viewsText: "",
+        statusText: "",
+        dateText: ""
     });
         //Vote Data
-    const voteText = ref("-10");
+    const voteText = ref("");
         //Contents List Data
     const contentsListData = ref([
         {
-            name: "Default",
+            text: "Default",
             level: 1,
         },
         {
-            name: "Default",
+            text: "Default",
             level: 2,
         },
         {
-            name: "Default",
+            text: "Default",
             level: 3,
         },
     ]);
         //Post Data
     const postData = ref({
-        title: "Title",
-        displayImgUri: "https://picsum.photos/600/300",
-        content: "# Sample Markdown",
+        title: "",
+        displayImgUrl: "",
+        content: "",
     });
-
+    
     //Toggle Contents
     const enableContents = ref(false);
+
+    //On load
+    onMounted(async () => {
+        //Details
+        const blogDetailsData = await GetBlogDetails(blogId.value);
+        if (blogDetailsData != false) {
+            authorData.value.username = blogDetailsData.blogDetails.username;
+            detailsData.value.viewsText = blogDetailsData.blogDetails.viewsText;
+            detailsData.value.statusText = blogDetailsData.blogDetails.statusText;
+            detailsData.value.dateText = blogDetailsData.blogDetails.dateText;
+            voteText.value = blogDetailsData.blogDetails.voteText;
+            postData.value.title = blogDetailsData.blogDetails.title;
+            postData.value.displayImgUrl = blogDetailsData.blogDetails.imgUrl;
+        }
+
+        //Post Content
+        const blogContentData = await GetBlogContent(blogId.value);
+        if (blogContentData != false) {
+            postData.value.content = blogContentData;
+        }
+    });
 
     function EnableContents(value) {
         enable.value = value;
@@ -133,6 +156,17 @@
 
     function Redirect(path) {
         router.push(path);
+    }
+
+    function GetTableOfContents(list) {
+        contentsListData.value = list;
+    }
+
+    function JumpToContent(content) {
+        const el = document.getElementById(content);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth' })
+        }
     }
 </script>
 
