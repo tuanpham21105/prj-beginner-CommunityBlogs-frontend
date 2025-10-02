@@ -6,7 +6,7 @@
 	import DefaultLayout from '@/layouts/DefaultLayout.vue';
 	import AuthenticationLayout from '@/layouts/AuthenticationLayout.vue';
 	import LoginView from '@/views/LoginView.vue';
-	import SigninView from '@/views/SigninView.vue';
+	import signupView from '@/views/SignupView.vue';
 	import BlogEditor from '@/views/BlogEditor.vue';
 	import UserView from '@/views/UserView.vue';
 
@@ -23,7 +23,7 @@
 				{ path: 'introduce', component: IntroduceView},
 				{ path: 'editor', component: BlogEditor},
 				{ path: 'editor/:id', component: BlogEditor},
-				{ path: 'user/:id', component: UserView},
+				{ path: 'user/:username', component: UserView},
 			]
 		},
 		{
@@ -31,7 +31,7 @@
 			children: 
 			[
 				{ path: 'login', component: LoginView},
-				{ path: 'signin', component: SigninView}
+				{ path: 'signup', component: signupView}
 			]
 		},
 	],

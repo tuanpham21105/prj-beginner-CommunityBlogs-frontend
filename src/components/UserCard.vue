@@ -1,31 +1,40 @@
 <template>
     <div class="user-card">
-        <img src="https://placehold.jp/150x150.png" alt="User Avatar">
+        <img :src="userDetails.avatarUrl" alt="User Avatar">
         <div class="user-info">
-            <h1>{{ userData.username }}</h1>
-            <h3><i class="fa-solid fa-calendar-days"></i> Ngày lập: <span class="info">{{ userData.joinDate }}</span></h3>
-            <h3><i class="fa-solid fa-thumbs-up"></i> Vote: <span class="info">{{ userData.vote }}</span></h3>
+            <h1>{{ userDetails.username }}</h1>
+            <h3><i class="fa-solid fa-calendar-days"></i> Ngày lập: <span class="info">{{ userDetails.joinDate }}</span></h3>
+            <h3><i class="fa-solid fa-thumbs-up"></i> Vote: <span class="info">{{ userDetails.vote }}</span></h3>
             <Button><i class="fa-solid fa-flag"></i> Báo cáo</Button>
         </div>
     </div>
 </template>
 
 <script setup>
-    import {ref} from 'vue';
+    import {onMounted, ref} from 'vue';
     import Button from '@/components/Button.vue';
+    import { GetUserDetails } from '@/services/UserServices.vue';
 
     const props = defineProps({
-        userId: {
+        username: {
             type: String
         }
     });
 
     //Data
         //user
-    const userData = ref({
+    const userDetails = ref({
         username: 'defaultUsername',
+        avatarUrl: 'https://placehold.jp/150x150.png',
         joinDate: '1/1/1',
         vote: 0,
+    });
+
+    onMounted(async () => {
+        const data = await GetUserDetails(props.username);
+        if (data != false) {
+            userDetails.value = data.userDetails;
+        }
     });
 </script>
 

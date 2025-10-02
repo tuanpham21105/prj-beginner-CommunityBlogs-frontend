@@ -14,13 +14,13 @@
 			<Tab :text-content="'What is CommunityBlog'" :redirect-path="'/introduce'" @on-click="Redirect"/>
 		</div>
 
-		<div class="btn-bar login-signin" v-if="!loginActive">
+		<div class="btn-bar login-signup" v-if="!auth.isLoggedIn">
 			<Button :redirect-path="'/auth/login'" @on-click="Redirect">Login</Button>
-			<Button :redirect-path="'/auth/signin'" @on-click="Redirect">Sign Up</Button>
+			<Button :redirect-path="'/auth/signup'" @on-click="Redirect">Sign Up</Button>
 		</div>
 
-		<div class="btn-bar user" v-if="loginActive">
-			<Button :redirect-path="`/user/${user.username}`" @on-click="Redirect"><i class="fa-solid fa-user"></i> {{ user.username }}</Button>
+		<div class="btn-bar user" v-if="auth.isLoggedIn">
+			<Button :redirect-path="`/user/${auth.user.username}`" @on-click="Redirect"><i class="fa-solid fa-user"></i> {{ auth.user.username }}</Button>
 		</div>
 
 		<div class="btn-bar placeholder">
@@ -35,8 +35,10 @@
 	import Tab from '@/components/Tab.vue';
 	import Button from '@/components/Button.vue';
 	import { useRouter } from 'vue-router';
+    import { useAuthStore } from '@/stores/AuthStore.vue';
 
 	const router = useRouter();
+	const auth = useAuthStore();
 
 	//Input Data
 	const user = ref({
@@ -105,7 +107,7 @@
 		.header-bar .tabsbar {
 			display: none;
 		}
-		.header-bar .login-signin {
+		.header-bar .login-signup {
 			display: none;
 		}
 		.header-bar .setting {

@@ -6,12 +6,13 @@
         <div class="login-right">
             <div class="login-box">
                 <h2>Login</h2>
-                <form>
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Login</button>
-                </form>
-                <p>Don't have an account? <a href="#" @click.left="Redirect('/auth/signin')">Sign Up</a></p>
+                <div >
+                    <input type="text" placeholder="Username" v-model="username" required>
+                    <input type="password" placeholder="Password" v-model="password" required>
+                    <p class="alert-msg" v-show="showAlert">Wrong username or password!</p>
+                    <button type="button" @click="OnClickLogin">Login</button>
+                </div>
+                <p>Don't have an account? <a href="#" @click.left="Redirect('/auth/signup')">Sign Up</a></p>
                 <p>Only want to read! <a href="#" @click.left="Redirect('/')">Back to News</a></p>
             </div>
         </div>
@@ -19,12 +20,42 @@
 </template>
 
 <script setup>
+    import { ref } from 'vue';
     import { useRouter } from 'vue-router';
     import WebsiteLogo from '@/components/WebsiteLogo.vue';
+    import { Login } from '@/services/AuthorizationServices.vue';
+    import { useAuthStore } from '@/stores/AuthStore.vue';
+
     const router = useRouter();
+    const auth = useAuthStore();
 
     function Redirect(path) {
         router.push(path);
+    }
+
+    const showAlert = ref(false);
+
+    //Data
+    const username = ref('');
+    const password = ref('');
+
+    //Function
+    async function OnClickLogin() {
+        const data = await Login(username.value, password.value);
+        if (data != false) {
+            if (data.userDetails != null) {
+                console.log(1);
+                auth.setUser(data.userDetails);
+                console.log(2);
+                username.value = '';
+                password.value = '';
+                Redirect('/');
+                showAlert.value = false;
+            }
+            else {
+                showAlert.value = true;
+            }
+        }
     }
 </script>
 
@@ -110,5 +141,10 @@
         color: #333;
         text-decoration: none;
         font-weight: bold;
+    }
+
+    .login-box .alert-msg {
+        color: red;
+        margin-top: 0;
     }
 </style>

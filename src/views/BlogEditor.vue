@@ -20,7 +20,7 @@
         <img :src="displayImgUrl" @error="DisplayImgError" class="display-img">
 
         <label for=""><h3>Content</h3></label>
-        <MdEditor language="en-US" v-model="content" :sanitize="sanitize"/>
+        <MdEditor language="en-US" v-model="content" :sanitize="sanitize" noUploadImg />
         <div class="btn-bar">
             <Button @on-click="SaveBlog">Save</Button>
         </div>
@@ -28,31 +28,35 @@
 </template>
 
 <script setup>
-    import { ref, watch } from 'vue';
+    import { onMounted, ref, watch } from 'vue';
     import { MdEditor } from 'md-editor-v3';
     import 'md-editor-v3/lib/style.css';
     import Button from '@/components/Button.vue';
     import sanitizeHtml from 'sanitize-html';
+    import { GetBlogContent, GetBlogListDetailsByUsername, PostBlog, PutBlog } from '@/services/BlogServices.vue';
+	import { useRoute } from 'vue-router';
+    
+    const route = useRoute();
 
-    const blogList = ref([
-        {
-            id: 'defaultId',
-            title: 'defalutTitle',
-            imgUrl: 'defaultImgUrl',
-        },
-    ]);
+    const blogList = ref([]);
 
     const blogId = ref('');
 
     const title = ref('');
 
     const displayImg = ref(null);
-    const displayImgUrl = ref('afdafaef');
+    const displayImgUrl = ref('');
 
-    const content = ref('# Content');
+    const content = ref('');
     
     const sanitize = (html) => {
-        return sanitizeHtml(html);
+        return sanitizeHtml(html, {
+            allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
+            allowedAttributes: {
+            ...sanitizeHtml.defaults.allowedAttributes,
+            img: ['src', 'alt', 'title', 'width', 'height']
+            }
+        });
     };
 
     const saveStatus = ref(true);
@@ -69,10 +73,14 @@
         displayImgUrl.value = 'https://picsum.photos/600/300';
     }
 
-    function ChangeBlogOption(e) {
+    async function ChangeBlogOption(e) {
         saveStatus.value = true;
 
-        if (e.target.value === 'new') {
+        SetBlogOption(e.target.value);
+    }
+
+    async function SetBlogOption(value) {
+        if (value === 'new') {
             blogId.value = '';
             title.value = '';
             displayImgUrl.value = '';
@@ -80,18 +88,40 @@
             content.value = '#Content';
         }
         else {
-            const blog = blogList.value.find(b => b.id === e.target.value);
+            const blog = blogList.value.find(b => b.id === value);
 
             blogId.value = blog.id;
             title.value = blog.title;
             displayImgUrl.value = blog.imgUrl;
 
-            content.value = '#Content';
+            const data = await GetBlogContent(blogId.value);
+            if (data != false) {
+                content.value = data;
+            }
         }
     }
 
     function SaveBlog() {
         saveStatus.value = true;
+
+        const blogDetails = 
+        {
+            id: blogId.value,
+            imgUrl: displayImgUrl.value,
+            title: title.value,
+            username: '',
+            viewsText: '',
+            statusText: '',
+            dateText: '',
+            voteText: 0,
+        }
+
+        if (blogId.value === '') {
+            PostBlog(blogDetails, content.value);
+        } 
+        else {
+            PutBlog(blogDetails, content.value);
+        }
     }
 
     watch(content, (newVal, oldVal) => {
@@ -101,6 +131,17 @@
     function ChangeDetails() {
         saveStatus.value = false;
     }
+
+    //On load
+    onMounted(async () => {
+        //Blog List
+        const data = await GetBlogListDetailsByUsername(1, -1, '');
+        if (data != false) {
+            blogList.value = data.blogDetailsList;
+        }
+
+        SetBlogOption(route.params.id);
+    });
 </script>
 
 <style scoped>

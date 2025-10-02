@@ -5,10 +5,10 @@
                 
                 <div class="details">
                     <div class="user-box">
-                        <img :src="authorData.avatarImgUrl" alt="User Avatar">
+                        <img :src="authorData.avatarUrl" alt="User Avatar">
                         <a href="" @click.left="Redirect(`/user/${authorData.username}`)" class="username">{{ authorData.username }}</a>
                     </div>
-                    <div v-if="loginState">
+                    <div v-if="auth.isLoggedIn && auth.user.username === authorData.username">
                         <Button style="width: 100%;" :redirectPath="`/editor/${blogId}`" @onClick="Redirect"><i class="fa-solid fa-pen-to-square"></i> Edit</Button>
                         <Button style="width: 100%;"><i class="fa-solid fa-trash"></i> Delete</Button>
                     </div>
@@ -78,18 +78,19 @@
     import Button from '@/components/Button.vue';
 	import { useRouter, useRoute } from 'vue-router';
     import { GetBlogContent, GetBlogDetails } from '@/services/BlogServices.vue';
+    import { GetUserDetails } from '@/services/UserServices.vue';
+    import { useAuthStore } from '@/stores/AuthStore.vue';
 
     const router = useRouter();
     const route = useRoute();
-
-    const loginState = ref(false);
+    const auth = useAuthStore();
 
     //Input Data
         //Blog Data
     const blogId = ref(route.params.id);
         //Author Data
     const authorData = ref({
-        avatarImgUrl: "https://placehold.jp/45x45.png",
+        avatarUrl: "https://placehold.jp/45x45.png",
         username: "",
     });
         //Details Data
@@ -137,6 +138,12 @@
             voteText.value = blogDetailsData.blogDetails.voteText;
             postData.value.title = blogDetailsData.blogDetails.title;
             postData.value.displayImgUrl = blogDetailsData.blogDetails.imgUrl;
+        }
+
+        //Author
+        const author = await GetUserDetails(authorData.username);
+        if (author != false) {
+            authorData.value = author.userDetails;
         }
 
         //Post Content

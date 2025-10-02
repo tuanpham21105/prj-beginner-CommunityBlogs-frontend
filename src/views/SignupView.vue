@@ -1,13 +1,12 @@
 <template>
-    <div class="signin-container">
-        <div class="signin-left">
+    <div class="signup-container">
+        <div class="signup-left">
             <WebsiteLogo class="logo"/>
         </div>
-        <div class="signin-right">
-            <div class="signin-box">
+        <div class="signup-right">
+            <div class="signup-box">
                 <h2>Sign Up</h2>
                 <form>
-                    <input type="text" placeholder="Full Name" required>
                     <input type="email" placeholder="Email" required>
                     <input type="text" placeholder="Username" required>
                     <input type="password" placeholder="Password" required>
@@ -28,6 +27,7 @@
 <script setup>
     import { useRouter } from 'vue-router';
     import WebsiteLogo from '@/components/WebsiteLogo.vue';
+
     const router = useRouter();
 
     function Redirect(path) {
@@ -36,21 +36,21 @@
 </script>
 
 <style scoped>
-    .signin-container {
+    .signup-container {
         display: flex;
         height: 100vh; /* full màn hình */
 
     }
 
     /* Bên trái: ảnh */
-    .signin-left {
+    .signup-left {
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    .signin-left .logo {
+    .signup-left .logo {
         display: block;
         background-color: #fff;
         padding: 0 4px;
@@ -61,7 +61,7 @@
     }
 
     /* Bên phải: form */
-    .signin-right {
+    .signup-right {
         flex: 1;
         display: flex;
         align-items: center;
@@ -70,18 +70,18 @@
         padding: 40px;
     }
 
-    .signin-box {
+    .signup-box {
         width: 100%;
         max-width: 350px;
     }
 
-    .signin-box h2 {
+    .signup-box h2 {
         text-align: center;
         margin-bottom: 20px;
         color: #333;
     }
 
-    .signin-box input {
+    .signup-box input {
         width: 100%;
         padding: 12px;
         margin: 10px 0;
@@ -90,7 +90,7 @@
         font-size: 14px;
     }
 
-    .signin-box button {
+    .signup-box button {
         width: 100%;
         padding: 12px;
         background: #333;
@@ -102,18 +102,18 @@
         margin-top: 10px;
     }
 
-    .signin-box button:hover {
+    .signup-box button:hover {
         background: #555;
     }
 
-    .signin-box p {
+    .signup-box p {
         text-align: center;
         margin-top: 15px;
         font-size: 14px;
         color: #666;
     }
 
-    .signin-box p a {
+    .signup-box p a {
         color: #333;
         text-decoration: none;
         font-weight: bold;
